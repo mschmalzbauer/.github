@@ -1,0 +1,9 @@
+name: Execute Terraform
+description: Executes Terraform 'Workflow' init, plan, apply
+
+runs:
+  using: composite
+
+  steps:
+    - name: Terraform init
+      run: echo Terraform init
