@@ -6,4 +6,5 @@ runs:
 
   steps:
     - name: Terraform init
+      shell: bash
       run: echo Terraform init
