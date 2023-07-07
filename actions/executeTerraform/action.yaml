@@ -5,6 +5,5 @@ runs:
   using: composite
 
   steps:
-    - name: Terraform init
-      shell: bash
-      run: echo Terraform init
+    - name: Terraform setup
+      uses: hashicorp/setup-terraform@v1
