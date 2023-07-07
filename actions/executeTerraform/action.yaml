@@ -9,9 +9,5 @@ runs:
       shell: bash
       run: printenv
 
-    - name: Access Repo Variables
-      shell: bash
-      run: echo ${{ vars.VAR_1}}
-      
     - name: Terraform setup
       uses: hashicorp/setup-terraform@v1
