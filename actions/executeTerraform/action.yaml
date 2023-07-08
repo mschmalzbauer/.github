@@ -9,10 +9,6 @@ runs:
   using: composite
 
   steps:
-    - name: Output Environment
-      shell: sh
-      run: printenv
-
     - name: Terraform setup
       uses: hashicorp/setup-terraform@v1
 
@@ -23,3 +19,7 @@ runs:
     - name: Terraform Init
       shell: sh
       run: terraform init
+
+    - name: List App Directory
+      shell: sh
+      run: ls -la
