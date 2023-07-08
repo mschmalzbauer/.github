@@ -21,5 +21,6 @@ runs:
     - name: List App Directory
       shell: sh
       run: |
+        ls -la
         cd ${{ inputs.path }}
         ls -la
