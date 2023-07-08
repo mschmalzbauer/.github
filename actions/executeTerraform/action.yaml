@@ -11,15 +11,15 @@ runs:
   steps:
     - name: Terraform setup
       uses: hashicorp/setup-terraform@v1
-
-    - name: Change to App Directory
-      shell: sh
-      run: cd ${{ inputs.path }}
       
-    - name: Terraform Init
+    - name: Terraform Init in App Directoy
       shell: sh
-      run: terraform init
+      run: |
+        cd ${{ inputs.path }}
+        terraform init
 
     - name: List App Directory
       shell: sh
-      run: ls -la
+      run: |
+        cd ${{ inputs.path }}
+        ls -la
