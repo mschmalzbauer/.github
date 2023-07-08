@@ -1,13 +1,25 @@
 name: Execute Terraform
 description: Executes Terraform 'Workflow' init, plan, apply
 
+inputs:
+  path:
+    default: app
+    
 runs:
   using: composite
 
   steps:
     - name: Output Environment
-      shell: bash
+      shell: sh
       run: printenv
 
     - name: Terraform setup
       uses: hashicorp/setup-terraform@v1
+
+    - name: Change to App Directory
+      shell: sh
+      run: cd §{{ inputs.path }}
+      
+    - name: Terraform Init
+      shell: sh
+      run: terraform init
