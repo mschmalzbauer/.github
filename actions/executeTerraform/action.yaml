@@ -18,7 +18,7 @@ runs:
 
     - name: Change to App Directory
       shell: sh
-      run: cd §{{ inputs.path }}
+      run: cd ${{ inputs.path }}
       
     - name: Terraform Init
       shell: sh
