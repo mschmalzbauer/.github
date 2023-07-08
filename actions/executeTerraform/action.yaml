@@ -17,6 +17,7 @@ runs:
       run: |
         cd ${{ inputs.path }}
         terraform init
+        ls -la
 
     - name: List App Directory
       shell: sh
