@@ -14,3 +14,6 @@ runs:
       with:
         repository: mschmalzbauer/tf-modules
         path: 'tf-modules'
+    - name: List Content
+      shell: sh
+      run: ls -la
