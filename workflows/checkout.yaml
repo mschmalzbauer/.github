@@ -1,0 +1,19 @@
+name: Chckout
+
+on:
+  workflow_call:
+    
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout main
+        uses: actions/checkout@3
+        with:
+          path: 'app'
+          
+      - name: checkout modules
+        uses: actions/checkout@3
+        with:
+          repository: mschmalzbauer/tf-modules
+          path: 'tf-modules'
