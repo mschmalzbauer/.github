@@ -1,7 +1,9 @@
 name: Checkout App and Modules Repository
 
 inputs:
-  persToken:
+  token:
+    description: Pers. Access Token
+    required: true
   
 runs:
   using: composite
