@@ -1,4 +1,5 @@
 name: Checkout App and Modules Repository
+description: Checks out App and Modules Repo
 
 runs:
   using: composite
