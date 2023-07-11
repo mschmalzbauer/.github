@@ -1,4 +1,4 @@
-name: Chckout
+name: Checkout
 
 on:
   workflow_call:
@@ -16,4 +16,5 @@ jobs:
         uses: actions/checkout@3
         with:
           repository: mschmalzbauer/tf-modules
+          token: ${{ secrets.Token }}
           path: 'tf-modules'
