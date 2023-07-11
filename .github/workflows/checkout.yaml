@@ -2,18 +2,19 @@ name: Checkout
 
 on:
   workflow_call:
+  workflow_dispatch:
     
 jobs:
   checkout:
     runs-on: ubuntu-latest
     steps:
       - name: checkout main
-        uses: actions/checkout@2
+        uses: actions/checkout@3
         with:
           path: 'app'
           
       - name: checkout modules
-        uses: actions/checkout@2
+        uses: actions/checkout@3
         with:
           repository: mschmalzbauer/tf-modules
           token: ${{ secrets.Token }}
