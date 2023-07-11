@@ -8,12 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout main
-        uses: actions/checkout@3
+        uses: actions/checkout@2
         with:
           path: 'app'
           
       - name: checkout modules
-        uses: actions/checkout@3
+        uses: actions/checkout@2
         with:
           repository: mschmalzbauer/tf-modules
           token: ${{ secrets.Token }}
