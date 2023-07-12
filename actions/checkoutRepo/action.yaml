@@ -5,6 +5,10 @@ runs:
   using: composite
 
   steps:
+    - name: Print Env
+      shell: sh
+      run: printenv
+      
     - name: Checkout App Repository
       uses: actions/checkout@v3
       with:
