@@ -18,7 +18,6 @@ runs:
       uses: actions/checkout@v3
       with:
         repository: mschmalzbauer/tf-modules
-        token: ${{ secrets.Token }}
         path: 'tf-modules'
     - name: List Content
       shell: sh
