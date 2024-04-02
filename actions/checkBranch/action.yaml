@@ -11,7 +11,7 @@ runs:
     - name: Check Branch
       shell: sh
       run: |
-        if [ "${{ github.ref }}" == "refs/heads/maint" ]; then
+        if [ contains(gethub.ref, 'refs/heads/maint') ]; then
           echo "Starting Deployment on ${{ github.ref }} Branch."
         else
           echo "Deployment only allowed on a maint Branch!"
