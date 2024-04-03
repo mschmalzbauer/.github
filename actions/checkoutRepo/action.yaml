@@ -36,8 +36,8 @@ runs:
     - name: Checkout Modules Repository
       uses: actions/checkout@v4
       with:
-        repository: mschmalzbauer/tf-modules
-        path: 'tf-modules'
+        repository: mschmalzbauer/modules
+        path: 'modules'
     - name: List Content
       shell: sh
       run: ls -la
