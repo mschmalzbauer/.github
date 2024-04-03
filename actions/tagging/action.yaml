@@ -4,6 +4,8 @@ description: Tags the current version if it is an INT Deployment
 inputs:
   env:
     description: Environment in which to deploy.
+  working-directory:
+    description: git working dir
   
 runs:
   using: composite
@@ -12,6 +14,7 @@ runs:
     - name: Tagging
       if: ${{ inputs.env == 'int' }}
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       run: |
         echo "Tagging Version ${{ github.ref_name }}"
         git config --global user.email "michael@example.com"
