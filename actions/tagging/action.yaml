@@ -17,3 +17,10 @@ runs:
         git config --global user.name "Michael"
         git tag -a ${{ github.ref_name }}  -m "Version ${{ github.ref_name }}"
         git push origin ${{ github.ref_name }}
+
+    - name: Nothing to do
+      if: ${{ inputs.env != 'int' }}
+      shell: bash
+      run: |
+        echo "Nothing to do!"
+        echo "Tagging only INT Deployments"
