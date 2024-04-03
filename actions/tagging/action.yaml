@@ -4,8 +4,14 @@ description: Tags the current version if it is an INT Deployment
 inputs:
   env:
     description: Environment in which to deploy.
+    type: string
   working-directory:
     description: git working dir
+    type: string
+    default: 'app'
+  version:
+    description: Version Number to tag the app repository with
+    type: string
   
 runs:
   using: composite
@@ -16,12 +22,12 @@ runs:
       shell: bash
       # working-directory: ${{ inputs.working-directory }}
       run: |
-        echo "Tagging Version ${{ github.ref_name }}"
+        echo "Tagging Version ${{ inputs.version }}"
         cd app
         git config --global user.email "michael@example.com"
         git config --global user.name "Michael"
-        git tag -a ${{ github.ref_name }}  -m "Version ${{ github.ref_name }}"
-        git push origin ${{ github.ref_name }}
+        git tag -a ${{ inputs.version }}  -m "Version ${{ inputs.version }}"
+        git push origin ${{ inputs.version }}
 
     - name: Nothing to do
       if: ${{ inputs.env != 'int' }}
