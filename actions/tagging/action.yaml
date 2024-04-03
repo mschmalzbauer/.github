@@ -1,0 +1,18 @@
+name: Tag current Version
+description: Tags the current version if it is an INT Deployment
+
+inputs:
+  env:
+    description: Environment in which to deploy.
+  
+runs:
+  using: composite
+
+  steps:
+    - name: Tagging
+      if: ${{ inputs.env == 'int }}
+      run: |
+        git config --global user.email "michael@example.com"
+        git config --global user.name "Michael"
+        git tag -a ${{ github.ref_name }}  -m "Version ${{ github.ref_name }}"
+        git push origin ${{ github.ref_name }}
