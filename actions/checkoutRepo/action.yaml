@@ -28,6 +28,7 @@ runs:
         echo "Deployment prerequisite not met!"
         echo "Environment: ${{ inputs.env }}"
         echo "Branch/Tag ${{ github.ref }}"
+        echo "Version ${{ inputs.version }}
         exit 1
     
     - name: Checkout App Repository
