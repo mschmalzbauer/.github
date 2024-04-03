@@ -21,6 +21,7 @@ runs:
 
     - name: Check Cancel Workflow
       if: ${{ steps.check_prerequisites.outputs.deployment_allowed != 'true' }}
+      shell: bash
       run: |
         echo "Deployment prerequisite not met!"
         echo "Environment: ${{ inputs.env }}"
