@@ -11,6 +11,7 @@ runs:
   steps:
     - name: Tagging
       if: ${{ inputs.env == 'int' }}
+      shell: bash
       run: |
         git config --global user.email "michael@example.com"
         git config --global user.name "Michael"
