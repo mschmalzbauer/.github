@@ -1,0 +1,86 @@
+name: Checkout App and Modules Repository
+description: Checks if Deployment is allowed (Env & Branch/Tag) and checks out App and Modules Repo
+
+inputs:
+  env:
+    description: Environment in which to deploy.
+  version:
+    description: Version to tag the Repo
+  path:
+    default: app
+  working-directory:
+    description: git working dir
+    type: string
+    default: 'app'
+  
+runs:
+  using: composite
+
+  steps:
+    - name: Check Prerequisites
+      if: ${{ inputs.env == 'dev' && ! startsWith(github.ref, 'refs/heads/maint') && ! startsWith(github.ref, 'refs/tags') ||
+              inputs.env == 'int' && startsWith(github.ref, 'refs/heads/maint') &&  inputs.version != '' ||
+              inputs.env == 'prod' && startsWith(github.ref, 'refs/tags') }}
+      id: check_prerequisites
+      shell: bash
+      run: |
+        echo "Started on ${{ github.ref }}"
+        echo "deployment_allowed=true" >> $GITHUB_OUTPUT
+
+    - name: Check Cancel Workflow
+      if: ${{ steps.check_prerequisites.outputs.deployment_allowed != 'true' }}
+      shell: bash
+      run: |
+        echo "Deployment prerequisite not met!"
+        echo "Environment: ${{ inputs.env }}"
+        echo "Branch/Tag ${{ github.ref }}"
+        echo "Version ${{ inputs.version }}
+        exit 1
+    
+    - name: Checkout App Repository
+      uses: actions/checkout@v4
+      with:
+        path: 'app'
+
+    - name: Checkout Modules Repository
+      uses: actions/checkout@v4
+      with:
+        repository: mschmalzbauer/modules
+        path: 'modules'
+
+    - name: Terraform setup
+      uses: hashicorp/setup-terraform@v3
+      
+    - name: Terraform Init in App Directoy
+      shell: sh
+      run: |
+        cd ${{ inputs.path }}
+        terraform init
+        ls -la
+
+    - name: List App Directory
+      shell: sh
+      run: |
+        echo List App Directory
+        ls -la
+        cd ${{ inputs.path }}
+        ls -la
+
+    - name: Tagging
+      if: ${{ inputs.env == 'int' }}
+      shell: bash
+      # working-directory: ${{ inputs.working-directory }}
+      run: |
+        echo "Tagging Version ${{ inputs.version }}"
+        cd app
+        git config --global user.email "michael@example.com"
+        git config --global user.name "Michael"
+        git tag -a ${{ inputs.version }}  -m "Version ${{ inputs.version }}"
+        git push origin ${{ inputs.version }}
+
+    - name: Nothing to do
+      if: ${{ inputs.env != 'int' }}
+      shell: bash
+      run: |
+        echo "Nothing to do!"
+        echo "Tagging only INT Deployments"
