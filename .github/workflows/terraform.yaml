@@ -1,0 +1,29 @@
+name: Execute Terraform
+
+on:
+  workflow_call:
+    inputs:
+      path:
+        type: string
+        default: app
+    
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Terraform setup
+        uses: hashicorp/setup-terraform@v1
+      
+      - name: Terraform Init in App Directoy
+        run: |
+          cd ${{ inputs.path }}
+          terraform init
+          ls -la
+
+      - name: List App Directory
+        run: |
+          echo List App Directory
+          ls -la
+          cd ${{ inputs.path }}
+          ls -la
