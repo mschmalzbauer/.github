@@ -1,6 +1,10 @@
 name: Checkout App and Modules Repository
 description: Checks if Deployment is allowed (Env & Branch/Tag) and checks out App and Modules Repo
 
+inputs:
+  env:
+    description: Environment in which to deploy.
+    
 runs:
   using: composite
 
