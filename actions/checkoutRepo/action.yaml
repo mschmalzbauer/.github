@@ -4,26 +4,28 @@ description: Checks if Deployment is allowed (Env & Branch/Tag) and checks out A
 inputs:
   env:
     description: Environment in which to deploy.
+  github_ref:
+    description: Branch or Tag from which to checkout
     
 runs:
   using: composite
 
   steps:
     - name: Check Prerequisites
-      if: ${{ inputs.env == 'dev' && ! startsWith(github.ref, 'refs/heads/maint') && ! startsWith(github.ref, 'refs/tags') ||
-              inputs.env == 'int' && startsWith(github.ref, 'refs/heads/maint') ||
-              inputs.env == 'prod' && startsWith(github.ref, 'refs/tags') }}
+      if: ${{ inputs.env == 'dev' && ! startsWith(inputs.github_ref, 'refs/heads/maint') && ! startsWith(inputs.github_ref, 'refs/tags') ||
+              inputs.env == 'int' && startsWith(inputs.github_ref, 'refs/heads/maint') ||
+              inputs.env == 'prod' && startsWith(inputs.github_ref, 'refs/tags') }}
       id: check_prerequisites
       run: |
-        echo "Started on ${{ github.ref_name }}"
+        echo "Started on ${{ inputs.github_ref }}"
         echo "deployment_allowed=true" >> $GITHUB_OUTPUT
 
     - name: Check Cancel Workflow
       if: ${{ steps.check_prerequisites.outputs.deployment_allowed != 'true' }}
       run: |
       echo "Deployment prerequisite not met!"
-          echo "Environment: ${{ inputs.env}}"
-          echo "Branch/Tag ${{ github.ref}}"
+          echo "Environment: ${{ inputs.env }}"
+          echo "Branch/Tag ${{ inputs.github_ref }}"
           exit 1
     
     - name: Checkout App Repository
