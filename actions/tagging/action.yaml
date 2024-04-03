@@ -10,7 +10,7 @@ runs:
 
   steps:
     - name: Tagging
-      if: ${{ inputs.env == 'int }}
+      if: ${{ inputs.env == 'int' }}
       run: |
         git config --global user.email "michael@example.com"
         git config --global user.name "Michael"
