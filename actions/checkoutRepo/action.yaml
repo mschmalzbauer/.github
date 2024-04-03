@@ -22,10 +22,10 @@ runs:
     - name: Check Cancel Workflow
       if: ${{ steps.check_prerequisites.outputs.deployment_allowed != 'true' }}
       run: |
-      echo "Deployment prerequisite not met!"
-          echo "Environment: ${{ inputs.env }}"
-          echo "Branch/Tag ${{ github.ref }}"
-          exit 1
+        echo "Deployment prerequisite not met!"
+        echo "Environment: ${{ inputs.env }}"
+        echo "Branch/Tag ${{ github.ref }}"
+        exit 1
     
     - name: Checkout App Repository
       uses: actions/checkout@v4
