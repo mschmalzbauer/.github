@@ -17,8 +17,7 @@ runs:
       # working-directory: ${{ inputs.working-directory }}
       run: |
         echo "Tagging Version ${{ github.ref_name }}"
-        pwd
-        ls -l
+        cd app
         git config --global user.email "michael@example.com"
         git config --global user.name "Michael"
         git tag -a ${{ github.ref_name }}  -m "Version ${{ github.ref_name }}"
