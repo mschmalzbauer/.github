@@ -12,8 +12,9 @@ runs:
 
   steps:
     - name: Check Prerequisites
-      if: ${{ inputs.env == 'dev' && ! startsWith(github.ref, 'refs/heads/maint') && ! startsWith(github.ref, 'refs/tags') ||
+      if: ${{ inputs.env == 'dev' ||
               inputs.env == 'int' && startsWith(github.ref, 'refs/heads/maint') &&  inputs.version != '' ||
+              inputs.env == 'int' && startsWith(github.ref, 'refs/tags')
               inputs.env == 'prod' && startsWith(github.ref, 'refs/tags') }}
       id: check_prerequisites
       shell: bash
