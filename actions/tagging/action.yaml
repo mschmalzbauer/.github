@@ -18,7 +18,7 @@ runs:
 
   steps:
     - name: Tagging
-      if: ${{ inputs.env == 'int' && startsWith(github.ref, 'refs/maint') }}
+      if: ${{ inputs.env == 'int' && startsWith(github.ref, 'refs/heads/maint') }}
       shell: bash
       # working-directory: ${{ inputs.working-directory }}
       run: |
@@ -30,7 +30,7 @@ runs:
         git push origin ${{ inputs.version }}
 
     - name: Nothing to do
-      if: ${{ inputs.env != 'int' || ! startsWith(github.ref, 'refs/maint')}}
+      if: ${{ inputs.env != 'int' || ! startsWith(github.ref, 'refs/heads/maint')}}
       shell: bash
       run: |
         echo "Nothing to do!"
